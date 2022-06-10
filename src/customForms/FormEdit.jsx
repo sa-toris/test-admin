@@ -11,13 +11,17 @@ import {
     BooleanInput,
     SaveButton,
     FunctionField,
+    useEditContext,
+    ReferenceInput,
 } from 'react-admin';
 import { useFormState } from 'react-hook-form';
 
 import ShowState from './ShowState';
 
 const postSave = data => {
-    alert(JSON.stringify(data));
+    const past = document.getElementById('ciResponseText');
+
+    past.innerHTML = JSON.stringify(data, undefined, 2);
 };
 // const { dirtyFields } = useFormState({
 //     data,
@@ -84,7 +88,7 @@ const FormEdit = () => (
             <SaveButton label="Сохранить" form="create_form" />
         </SimpleForm>
         &nbsp;
-        <p>{postSave}</p>
+        <div id="ciResponseText">Output will de displayed here.</div>
         <ShowState>
             <p>{postSave}</p>
         </ShowState>

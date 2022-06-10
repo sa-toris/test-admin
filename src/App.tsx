@@ -28,12 +28,12 @@ import FormShow from './customForms/FormShow';
 const dataProvider = fakeDataProvider({
     posts: [
         { passengerField: 'firstName' },
-        { passengerField: 'firstName1' },
+        { passengerField: 'firstName111' },
         { passengerField: 'firstName2' },
     ],
     posts1: [
         { transactionField: 'data' },
-        { transactionField: 'data1' },
+        { transactionField: 'data111' },
         { transactionField: 'data2' },
     ],
     posts2: [],

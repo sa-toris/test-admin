@@ -23,22 +23,20 @@ import Segments from './segments/Segments';
 
 import FormEdit from './customForms/FormEdit';
 import FormList from './customForms/FormList';
+import FormShow from './customForms/FormShow';
 
 const dataProvider = fakeDataProvider({
     posts: [
-        {
-            id: 1,
-            value: [
-                { passengerField: 'firstName' },
-                { passengerField: 'firstName1' },
-                { passengerField: 'firstName2' },
-            ],
-        },
-        {
-            id: 2,
-            value: [{ passengerField: 'firstName1' }],
-        },
+        { passengerField: 'firstName' },
+        { passengerField: 'firstName1' },
+        { passengerField: 'firstName2' },
     ],
+    posts1: [
+        { transactionField: 'data' },
+        { transactionField: 'data1' },
+        { transactionField: 'data2' },
+    ],
+    posts2: [],
 });
 
 // const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
@@ -59,15 +57,15 @@ const App = () => {
                 {/* <Route path="/customForms" element={<CustomEdit />} /> */}
             </CustomRoutes>
 
-            <Resource name="posts" list={FormList} edit={FormEdit} />
+            <Resource
+                name="posts"
+                list={FormList}
+                edit={FormEdit}
+                show={FormShow}
+            />
+            {/* <Resource name="posts1" />
+            <Resource name="posts2" /> */}
         </Admin>
-        // <Admin
-        //     dataProvider={jsonServerProvider(
-        //         'https://jsonplaceholder.typicode.com'
-        //     )}
-        // >
-        //     <Resource name="posts" create={PostCreate} edit={PostEdit} />
-        // </Admin>
     );
 };
 

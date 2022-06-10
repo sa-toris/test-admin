@@ -4,11 +4,8 @@ import { List, Datagrid, TextField } from 'react-admin';
 const FormList = () => (
     <List>
         <Datagrid rowClick="edit">
-            <TextField source="id" />
-            <TextField source="passengerField" />
-            <TextField source="value" />
+            <TextField source="title" />
             <TextField source="active" />
-            {/* <BooleanField source="commentable" /> */}
         </Datagrid>
     </List>
 );

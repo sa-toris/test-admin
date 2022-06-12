@@ -1,6 +1,5 @@
-import { Stack } from '@mui/material';
 import * as React from 'react';
-import TextField from '@mui/material/TextField';
+
 import {
     Edit,
     SimpleForm,
@@ -10,39 +9,37 @@ import {
     SimpleFormIterator,
     BooleanInput,
     SaveButton,
-    FunctionField,
-    useEditContext,
     ReferenceInput,
 } from 'react-admin';
-import { useFormState } from 'react-hook-form';
-
-import ShowState from './ShowState';
+import { Button } from '@mui/material';
 
 const postSave = data => {
     const past = document.getElementById('ciResponseText');
 
-    past.innerHTML = JSON.stringify(data, undefined, 2);
+    past.innerHTML = JSON.stringify(data, null, 2).replace(/\n( *)/g, function (
+        match,
+        p1
+    ) {
+        return '<br>' + '&nbsp'.repeat(p1.length);
+    });
 };
-// const { dirtyFields } = useFormState({
-//     data,
-// });
 
 const FormEdit = () => (
     <Edit>
         <SimpleForm toolbar={false} onSubmit={postSave} id="create_form">
             <TextInput source="title" />
 
-            <ArrayInput
-                sx={{
-                    bgcolor: 'background.paper',
-                    boxShadow: 1,
-                    borderRadius: 2,
-                    p: 2,
-                    minWidth: 300,
-                }}
-                source="posts"
-            >
-                <SimpleFormIterator disableReordering>
+            <ArrayInput source="value" label="">
+                <SimpleFormIterator
+                    resource="posts"
+                    disableReordering
+                    removeButton={
+                        <Button variant="text" color="error">
+                            Удалить
+                        </Button>
+                    }
+                    addButton={<Button variant="text">Добавить правило</Button>}
+                >
                     {/* Компонеты берут данные напрямую с сервера и помещают их в SelectInput */}
                     {/* <ReferenceInput
                         label="Passenger Field"
@@ -57,7 +54,8 @@ const FormEdit = () => (
                         reference="posts1"
                     >
                         <SelectInput optionText="transactionField" />
-                    </ReferenceInput> */}
+                    </ReferenceInput>
+                    <SelectInput /> */}
 
                     <SelectInput
                         defaultValue="firstName1"
@@ -71,6 +69,11 @@ const FormEdit = () => (
                         ]}
                     />
                     <SelectInput
+                        sx={{
+                            position: 'relative',
+                            bottom: 84,
+                            left: 200,
+                        }}
                         defaultValue="data1"
                         optionValue="id"
                         optionText="name"
@@ -88,10 +91,7 @@ const FormEdit = () => (
             <SaveButton label="Сохранить" form="create_form" />
         </SimpleForm>
         &nbsp;
-        <div id="ciResponseText">Output will de displayed here.</div>
-        <ShowState>
-            <p>{postSave}</p>
-        </ShowState>
+        <pre id="ciResponseText"></pre>
     </Edit>
 );
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useController } from 'react-hook-form';
+import { useController, useForm } from 'react-hook-form';
 import {
     Edit,
     SimpleForm,
@@ -16,10 +16,21 @@ import {
 import PassengerField from './PassengerField';
 
 const LatLngInput = () => {
+    const { watch } = useForm();
+    const watchAllFields = watch();
     return (
         <span>
-            <PassengerField />
-            <PassengerField />
+            {/* <PassengerField />
+            <PassengerField /> */}
+            <div>
+                {watchAllFields ? (
+                    <>
+                        <pre>{JSON.stringify(watchAllFields, null, 2)}</pre>
+                    </>
+                ) : (
+                    ''
+                )}
+            </div>
         </span>
     );
 };

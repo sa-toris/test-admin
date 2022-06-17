@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { useState } from 'react';
 import {
     Edit,
     SimpleForm,
@@ -10,8 +10,10 @@ import {
     BooleanInput,
     SaveButton,
     ReferenceInput,
+    AutocompleteInput,
 } from 'react-admin';
 import { Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 const postSave = data => {
     const past = document.getElementById('ciResponseText');
@@ -26,12 +28,40 @@ const postSave = data => {
 
 const FormEdit = () => (
     <Edit>
+        <MySimpleForm></MySimpleForm>
+        &nbsp;
+        <pre id="ciResponseText"></pre>
+    </Edit>
+);
+
+export default FormEdit;
+
+const MySimpleForm = ({}) => {
+    const useStyle = makeStyles(() => ({
+        root: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            '& section': {
+                display: 'flex',
+                flexDirection: 'row !important',
+
+                '& :nth-child(2)': {
+                    marginLeft: '10px',
+                },
+            },
+        },
+    }));
+
+    const iteratorClasses = useStyle();
+
+    return (
         <SimpleForm toolbar={false} onSubmit={postSave} id="create_form">
             <TextInput source="title" />
 
             <ArrayInput source="value" label="">
                 <SimpleFormIterator
-                    resource="posts"
+                    className={iteratorClasses.root}
                     disableReordering
                     removeButton={
                         <Button variant="text" color="error">
@@ -40,24 +70,24 @@ const FormEdit = () => (
                     }
                     addButton={<Button variant="text">Добавить правило</Button>}
                 >
-                    {/* Компонеты берут данные напрямую с сервера и помещают их в SelectInput */}
-                    {/* <ReferenceInput
-                        label="Passenger Field"
-                        source="posts"
-                        reference="posts"
-                    >
-                        <SelectInput optionText="passengerField" />
+                    {/* <ReferenceInput source="passengerField" reference="posts">
+                        <SelectInput
+                            defaultValue="firstName1"
+                            optionText="passengerField"
+                            optionValue="passengerField"
+                        />
                     </ReferenceInput>
                     <ReferenceInput
-                        label="transactionField"
                         source="transactionField"
                         reference="posts1"
                     >
-                        <SelectInput optionText="transactionField" />
-                    </ReferenceInput>
-                    <SelectInput /> */}
-
-                    <SelectInput
+                        <SelectInput
+                            defaultValue="data1"
+                            optionText="transactionField"
+                            optionValue="transactionField"
+                        />
+                    </ReferenceInput> */}
+                    <AutocompleteInput
                         defaultValue="firstName1"
                         optionValue="id"
                         optionText="name"
@@ -68,12 +98,7 @@ const FormEdit = () => (
                             { id: 'firstName2', name: 'FirstName2' },
                         ]}
                     />
-                    <SelectInput
-                        sx={{
-                            position: 'relative',
-                            bottom: 84,
-                            left: 200,
-                        }}
+                    <AutocompleteInput
                         defaultValue="data1"
                         optionValue="id"
                         optionText="name"
@@ -90,9 +115,5 @@ const FormEdit = () => (
             <BooleanInput label="Активно" source="active" />
             <SaveButton label="Сохранить" form="create_form" />
         </SimpleForm>
-        &nbsp;
-        <pre id="ciResponseText"></pre>
-    </Edit>
-);
-
-export default FormEdit;
+    );
+};

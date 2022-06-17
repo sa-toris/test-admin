@@ -26,20 +26,31 @@ import FormList from './customForms/FormList';
 
 const dataProvider = fakeDataProvider({
     posts: [
-        { id: 2 },
-        // { passengerField: 'firstName' },
-        // { passengerField: 'firstName1' },
-        // { passengerField: 'firstName2' },
+        { passengerField: 'firstName' },
+        { passengerField: 'firstName1' },
+        { passengerField: 'firstName2' },
     ],
-    // posts1: [
-    //     { transactionField: 'data' },
-    //     { transactionField: 'data111' },
-    //     { transactionField: 'data2' },
-    // ],
-    posts2: [],
+    posts1: [
+        { transactionField: 'data' },
+        { transactionField: 'data1' },
+        { transactionField: 'data2' },
+    ],
 });
 
-// const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+const App = () => {
+    return (
+        <Admin dataProvider={dataProvider}>
+            <CustomRoutes>
+                {/* <Route path="/customForms" element={<CustomEdit />} /> */}
+            </CustomRoutes>
+
+            <Resource name="posts" list={FormList} edit={FormEdit} />
+            <Resource name="posts2" />
+        </Admin>
+    );
+};
+
+export default App;
 
 // const i18nProvider = polyglotI18nProvider(locale => {
 //     if (locale === 'fr') {
@@ -50,51 +61,37 @@ const dataProvider = fakeDataProvider({
 //     return englishMessages;
 // }, 'en');
 
-const App = () => {
-    return (
-        <Admin dataProvider={dataProvider}>
-            <CustomRoutes>
-                {/* <Route path="/customForms" element={<CustomEdit />} /> */}
-            </CustomRoutes>
+// const App = () => {
+//     return (
+//         <Admin
+//             title=""
+//             dataProvider={dataProviderFactory(
+//                 process.env.REACT_APP_DATA_PROVIDER || ''
+//             )}
+//             authProvider={authProvider}
+//             dashboard={Dashboard}
+//             loginPage={Login}
+//             layout={Layout}
+//             i18nProvider={i18nProvider}
+//             disableTelemetry
+//             theme={lightTheme}
+//         >
+//             <CustomRoutes>
+//                 <Route path="/configuration" element={<Configuration />} />
+//                 <Route path="/segments" element={<Segments />} />
+//             </CustomRoutes>
+//             <Resource name="customers" {...visitors} />
+//             <Resource
+//                 name="commands"
+//                 {...orders}
+//                 options={{ label: 'Orders' }}
+//             />
+//             <Resource name="invoices" {...invoices} />
+//             <Resource name="products" {...products} />
+//             <Resource name="categories" {...categories} />
+//             <Resource name="reviews" {...reviews} />
+//         </Admin>
+//     );
+// };
 
-            <Resource name="posts" list={FormList} edit={FormEdit} />
-        </Admin>
-    );
-};
-
-export default App;
-
-{
-    /* <Admin
-title=""
-dataProvider={
-		(dataProviderFactory(process.env.REACT_APP_DATA_PROVIDER || ''),
-		dataProvider)
-}
-authProvider={authProvider}
-dashboard={Dashboard}
-loginPage={Login}
-layout={Layout}
-i18nProvider={i18nProvider}
-disableTelemetry
-theme={lightTheme}
->
-<CustomRoutes>
-		<Route path="/configuration" element={<Configuration />} />
-		<Route path="/segments" element={<Segments />} />
-
-		<Route path="/customForms" element={<CustomEdit />} />
-</CustomRoutes>
-<Resource name="customers" {...visitors} />
-<Resource
-		name="commands"
-		{...orders}
-		options={{ label: 'Orders' }}
-/>
-<Resource name="invoices" {...invoices} />
-<Resource name="products" {...products} />
-<Resource name="categories" {...categories} />
-<Resource name="reviews" {...reviews} />
-<Resource name="users" list={CustomEdit} />
-</Admin> */
-}
+// export default App;
